@@ -1,0 +1,12 @@
+---
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: sm
+nodes:
+    - role: control-plane
+    - role: worker
+    - role: worker
+    - role: worker
+networking:
+    disableDefaultCNI: true
+#     serviceSubnet: "172.18.255.200/12"
