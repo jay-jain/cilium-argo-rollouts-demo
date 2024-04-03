@@ -4,18 +4,18 @@ This project demonstrates using Cilium and Argo Rollouts using the Gateway API.
 
 To get started, execute the `up.sh` script, which does the following:
 
--   Bootstraps a kind cluster
--   Temporarily installs calico CNI to bring the cluster into a ready state
--   Installs Gateway API
--   Installs Cilium with required flags
--   Installs MetalLB for L2 traffic
--   Installs argo-rollouts
--   Installs Argo Rollouts plugin for Cilium
--   Deploys the following:
-    -   `Gateway`
-    -   2 `Service` objects (1 for stable, 1 for canary)
-    -   `HTTPRoute` object
-    -   `Rollout` object
+- Bootstraps a kind cluster
+- Temporarily installs calico CNI to bring the cluster into a ready state
+- Installs Gateway API
+- Installs Cilium with required flags
+- Installs MetalLB for L2 traffic
+- Installs argo-rollouts
+- Installs Argo Rollouts plugin for Cilium
+- Deploys the following:
+  - `Gateway`
+  - 2 `Service` objects (1 for stable, 1 for canary)
+  - `HTTPRoute` object
+  - `Rollout` object
 
 ```sh
 $ k get svc
@@ -27,7 +27,13 @@ kubernetes                     ClusterIP      10.96.0.1       <none>           4
 ```
 
 You can execute the `./test_canary.sh` script to see which % of requests are going to which version of the application. You can run this
-step every time after you do a canary promotion.
+step every time after you do a canary promotion:
+
+```sh
+$ ./test_canary.sh
+Responses from v1: 0
+Responses from v2: 100
+```
 
 To execute a canary, you can do this from Argo Rollouts UI:
 
