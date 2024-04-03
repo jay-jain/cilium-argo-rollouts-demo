@@ -27,7 +27,13 @@ kubernetes                     ClusterIP      10.96.0.1       <none>           4
 ```
 
 You can execute the `./test_canary.sh` script to see which % of requests are going to which version of the application. You can run this
-step every time after you do a canary promotion.
+step every time after you do a canary promotion:
+
+```sh
+$ ./test_canary.sh
+Responses from v1: 0
+Responses from v2: 100
+```
 
 To execute a canary, you can do this from Argo Rollouts UI:
 
