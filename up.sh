@@ -1,8 +1,8 @@
 #!/bin/bash
 
-CILIUM_VERSION="v1.15.3"
-ROLLOUTS_PLUGIN_VERSION="v0.2.0"
-GATEWAY_API_VERSION="v1.0.0"
+CILIUM_VERSION="v1.17.2"
+ROLLOUTS_PLUGIN_VERSION="v0.5.0"
+GATEWAY_API_VERSION="v1.2.1"
 PLATFORM="linux-amd64"
 
 # Make tmp dir
@@ -40,7 +40,7 @@ helm upgrade \
 	# --set ipam.mode=kubernetes \
 	# --set externalIPs.enabled=true \
 	# --set bpf.lbExternalClusterIP=true
-	
+
 kubectl -n kube-system rollout restart deployment/cilium-operator
 kubectl -n kube-system rollout restart ds/cilium
 
@@ -84,7 +84,7 @@ spec:
               kubernetes.io/os: linux
 EOF
 
-# Install metallb 
+# Install metallb
 helm install \
 	--namespace metallb-system \
 	--create-namespace \
@@ -132,7 +132,7 @@ sleep 30
 # Install RBAC
 kubectl create -f argo-rollouts-rbac.yaml
 
-# Restart Argo Rollouts 
+# Restart Argo Rollouts
 kubectl -n argo-rollouts rollout restart deployment/argo-rollouts
 sleep 30
 
@@ -146,5 +146,4 @@ GATEWAY="$(kubectl get gateways.gateway.networking.k8s.io cilium -o=jsonpath="{.
 curl -s -H "host: demo.example.com" ${GATEWAY}/callme
 
 echo -e "To view the Argo Rollouts dashboard and do a canary deployment, execute the following command: kubectl argo rollouts dashboard \n"
-
 echo -e "Removing tmp/ dir \n" && rm -rf tmp/
